@@ -1,0 +1,37 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+	<div class="ml-2">
+		<h1>Books</h1>
+	</div>
+  {% for book in books %}
+		<div class="card mt-2 float-left mb-3 col-12 col-md-3 mr-md-2 col-lg-2 ml-2" style="width: 18rem;">
+			<img src="static/images/livros-pontes.jpg" class="card-img-top" alt="Books">
+			<div class="card-body">
+				<div class="card-tittle" style="font-size: 16px">
+					{{ book.name }}
+				</div>
+				<ul class="list-group list-group-flush">
+					<li class="list-group-item">Author: {{ book.author }}</li>
+					<li class="list-group-item">Genre: {{ book.genre }}</li>
+					<li class="list-group-item">
+						<span>Read: </span>
+						{% if book.status == True %}
+							<span class="float-right text-success" data-feather="check-square">Lido</span>
+						{% else %}
+							<span class="float-right text-danger" data-feather="x-square">Não Lido</span>
+						{% endif %}
+					</li>
+				</ul>
+			</div>
+			<div class="card-body">
+				<a href="{{ url_for('edit_books', id=book.id) }}" class="btn card-link float-left btn-link">
+					<span data-feather="edit">Edit</span>
+				</a>
+				<a href="{{ url_for('delete_books', id=book.id) }}" class="card-link float-right">
+					<span data-feather="trash-2" class="text-danger">Delete</span>
+				</a>
+			</div>
+		</div>
+  {% endfor %}
+{% endblock %}
